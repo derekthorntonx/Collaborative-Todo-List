@@ -1,23 +1,14 @@
-import logo from './logo.svg';
 import './App.css';
+import ChatWindow from './components/ChatWindow';
+import MainView from './components/MainView';
+import { signInWithGoogle } from './firebase';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='h-screen w-screen max-h-screen bg-slate-200 overflow-hidden'>
+      <ChatWindow />
+      <MainView />
+      <button className='bg-cyan-400' onClick={signInWithGoogle}>Sign in with google</button>
     </div>
   );
 }
