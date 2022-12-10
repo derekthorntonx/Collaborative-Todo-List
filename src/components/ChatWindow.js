@@ -1,15 +1,14 @@
 import Paperclip from '../assets/paperclip.png';
 import ChatBubble from './ChatBubble';
-import { useState } from 'react';
-import { addDoc, collection, Timestamp } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { addDoc, collection, onSnapshot, Timestamp, query, orderBy } from 'firebase/firestore';
 import { db } from '../firebase';
 
 
 function ChatWindow() {
-    //states probably wont work for userIsAuthor, just make it a conditional
-    //if authorID + authenticated ID are the same
     const [messageInput, setMessageInput] = useState('');
     const [showChat, setShowChat] = useState(true);
+    const [messages, setMessages] = useState([]);
     const toggleChatWindow = () => setShowChat(!showChat);
     const sendChatMessage = async (e) => {
         e.preventDefault();
@@ -19,11 +18,23 @@ function ChatWindow() {
         }
         await addDoc(collection(db, 'chatMessages'), {
             message: messageInput,
-            time: Timestamp.now()
-           // author: 
+            time: Timestamp.now(),
+            author: localStorage.getItem('email')
         })
         setMessageInput('');
     };
+
+    useEffect(() => {
+        const q = query(collection(db, 'chatMessages'), orderBy('time'));
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+            let messagesArray = [];
+            querySnapshot.forEach((message) => {
+                messagesArray.push({...message.data(), id: message.id})
+            })
+            setMessages(messagesArray);
+        });
+        return () => unsubscribe();
+    }, [])
 
     return (
         <>
@@ -34,11 +45,9 @@ function ChatWindow() {
             </div>
             <div className="bg-gradient-to-r from-indigo-300 via-purple-300 to-pink-300 h-[88%] p-2 flex flex-col">
                 <ul>
-                    <ChatBubble />
-                    <ChatBubble />
-                    <li>{messageInput}</li>
-                    <li>placeholder</li>
-                    <li>placeholder</li>
+                    {messages.map((message, index) => (
+                        <ChatBubble key={index} message={message}/>
+                    ))}
                 </ul>
             </div>
             <form onSubmit={sendChatMessage} className="bg-slate-400 flex align-center h-[8%] p-1 gap-2">

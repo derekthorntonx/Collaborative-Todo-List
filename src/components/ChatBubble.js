@@ -1,9 +1,9 @@
-function ChatBubble() {
-
-    let userIsAuthor = false;
+function ChatBubble( {message} ) {
 
     return(
-        <div className={!userIsAuthor ? 'bg-red-500 text-right' : 'bg-green-500 text-left'}>use props.childrasdasddddddddddddddddddddddddddddden and take props in function argument</div>
+        <div className={localStorage.getItem('email') === message.author ? 'bg-green-300 text-left' : 'bg-red-300 text-right'}>
+            {message.message}{message.author}
+        </div>
     )
 }
 
