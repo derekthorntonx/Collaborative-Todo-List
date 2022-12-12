@@ -2,6 +2,7 @@ import TaskItem from "./TaskItem";
 import { db, auth } from '../firebase';
 import { useState, useEffect } from 'react';
 import { addDoc, collection, onSnapshot, Timestamp, query, orderBy } from 'firebase/firestore';
+import Blip from '../assets/blip.ogg';
 
 function MainView() {
   const [tasks, setTasks] = useState([]);
@@ -17,6 +18,7 @@ function MainView() {
             alert('Cannot add an empty task.');
             return;
         }
+        new Audio(Blip).play();
         await addDoc(collection(db, 'taskList'), {
             task: taskInput,
             time: Timestamp.now(),
