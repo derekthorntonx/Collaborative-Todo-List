@@ -5,12 +5,10 @@ import { signInWithGoogle } from './firebase';
 
 function App() {
   return (
-    <div className='h-screen w-screen max-h-screen bg-slate-200 overflow-hidden'>
+    <div className='h-screen w-screen max-h-screen bg-slate-200'>
       <ChatWindow />
       <MainView />
-      <button className='bg-cyan-400' onClick={signInWithGoogle}>Sign in with google</button>
-      <h2>Hello, {localStorage.getItem('name')}</h2>
-      <img alt='User Display Pic' src={localStorage.getItem('picture')} />
+      <button className='bg-cyan-400 position: absolute right-0 top-0' onClick={signInWithGoogle}>Sign in with google</button>
     </div>
   );
 }
