@@ -8,7 +8,7 @@ function App() {
     <div className='h-screen w-screen max-h-screen bg-slate-200'>
       <ChatWindow />
       <MainView />
-      <button className='bg-cyan-400 position: absolute right-0 top-0' onClick={signInWithGoogle}>Sign in with google</button>
+      {localStorage.getItem('verified') === false ? <button className='bg-cyan-400 rounded-full p-3 position: absolute right-0 top-0 hover:bg-cyan-300' onClick={signInWithGoogle}>Sign in with Google</button> : null}
     </div>
   );
 }

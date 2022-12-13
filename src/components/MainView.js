@@ -46,7 +46,7 @@ function MainView() {
                         <TaskItem key={index} task={task}/>
                     ))}
             <form onSubmit={addNewTask} className="bg-slate-300 h-[6%] w-[100%] flex p-1">
-                <input className='w-[85%]' type='text' value={taskInput} placeholder="Create a new task..." onChange={(e)=>{
+                <input className='w-[100%] pl-2' type='text' value={taskInput} placeholder="Create a new task..." onChange={(e)=>{
                     setTaskInput(e.target.value);
                 }}></input>
             </form>

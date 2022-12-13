@@ -21,8 +21,10 @@ export const signInWithGoogle = () => {
     const name = result.user.displayName;
     const picture = result.user.photoURL;
     const email = result.user.email;
+    const verified = result.user.emailVerified;
     localStorage.setItem('name', name);
     localStorage.setItem('picture', picture);
     localStorage.setItem('email', email);
+    localStorage.setItem('verified', verified);
   }).catch((error) => console.log(error))
 };
